@@ -2,11 +2,11 @@
   "version": "0.2.0",
   "configurations": [
     {
-      "name": "The Redirector",
+      "name": "edge Lord",
       "type": "coreclr",
       "request": "launch",
       "preLaunchTask": "build",
-      "program": "${workspaceFolder}/src/TheREdirector/bin/Debug/net10.0-windows/TheREdirector.dll",
+      "program": "${workspaceFolder}/src/EdgeLord/bin/Debug/net10.0-windows/EdgeLord.dll",
       "cwd": "${workspaceFolder}",
       "console": "internalConsole"
     }

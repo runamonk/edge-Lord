@@ -1,11 +1,11 @@
 using System.IO.Compression;
-using TheREdirector.Core;
+using EdgeLord.Core;
 
-namespace TheREdirector.Tests;
+namespace EdgeLord.Tests;
 
 public sealed class UpdateInstallerTests : IDisposable
 {
-    private readonly string _root = Path.Combine(Path.GetTempPath(), "TheREdirector-update-test-" + Guid.NewGuid().ToString("N"));
+    private readonly string _root = Path.Combine(Path.GetTempPath(), "EdgeLord-update-test-" + Guid.NewGuid().ToString("N"));
     private string App => Path.Combine(_root, "app");
 
     private string Write(string relative, string text)
@@ -31,20 +31,20 @@ public sealed class UpdateInstallerTests : IDisposable
     [Fact]
     public void InstallReplacesAppFilesKeepsOtherFilesAndOnlyTheLastBackup()
     {
-        Write("TheREdirector.exe", "old");
+        Write("EdgeLord.exe", "old");
         Write("licenses/old.txt", "old");
         Write("Notes/mine.txt", "mine");
-        Write("backup/0.9.0/TheREdirector.exe", "older");
-        var zip = Release("TheREdirector.exe", "licenses/new.txt", "Added.dll");
+        Write("backup/0.9.0/EdgeLord.exe", "older");
+        var zip = Release("EdgeLord.exe", "licenses/new.txt", "Added.dll");
 
         UpdateInstaller.Install(zip, App, "1.0.0");
 
-        Assert.Equal("new", File.ReadAllText(Path.Combine(App, "TheREdirector.exe")));
+        Assert.Equal("new", File.ReadAllText(Path.Combine(App, "EdgeLord.exe")));
         Assert.Equal("new", File.ReadAllText(Path.Combine(App, "licenses", "new.txt")));
         Assert.Equal("new", File.ReadAllText(Path.Combine(App, "Added.dll")));
         Assert.False(File.Exists(Path.Combine(App, "licenses", "old.txt")));
         Assert.Equal("mine", File.ReadAllText(Path.Combine(App, "Notes", "mine.txt")));
-        Assert.Equal("old", File.ReadAllText(Path.Combine(App, "backup", "1.0.0", "TheREdirector.exe")));
+        Assert.Equal("old", File.ReadAllText(Path.Combine(App, "backup", "1.0.0", "EdgeLord.exe")));
         Assert.Equal("old", File.ReadAllText(Path.Combine(App, "backup", "1.0.0", "licenses", "old.txt")));
         Assert.False(Directory.Exists(Path.Combine(App, "backup", "0.9.0")));
     }
@@ -52,14 +52,14 @@ public sealed class UpdateInstallerTests : IDisposable
     [Fact]
     public void FailedInstallPutsThePreviousVersionBack()
     {
-        Write("TheREdirector.exe", "old");
+        Write("EdgeLord.exe", "old");
         var locked = Write("Locked.dll", "old");
-        var zip = Release("TheREdirector.exe", "Locked.dll", "Added.dll");
+        var zip = Release("EdgeLord.exe", "Locked.dll", "Added.dll");
 
         using (new FileStream(locked, FileMode.Open, FileAccess.Read, FileShare.None))
             Assert.Throws<IOException>(() => UpdateInstaller.Install(zip, App, "1.0.0"));
 
-        Assert.Equal("old", File.ReadAllText(Path.Combine(App, "TheREdirector.exe")));
+        Assert.Equal("old", File.ReadAllText(Path.Combine(App, "EdgeLord.exe")));
         Assert.Equal("old", File.ReadAllText(locked));
         Assert.False(File.Exists(Path.Combine(App, "Added.dll")));
     }

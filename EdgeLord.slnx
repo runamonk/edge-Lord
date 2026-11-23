@@ -1,0 +1,10 @@
+<Solution>
+  <Folder Name="/src/">
+    <Project Path="src/EdgeLord.Core/EdgeLord.Core.csproj" />
+    <Project Path="src/EdgeLord/EdgeLord.csproj" />
+    <Project Path="src/EdgeLord.Updater/EdgeLord.Updater.csproj" />
+  </Folder>
+  <Folder Name="/tests/">
+    <Project Path="tests/EdgeLord.Tests/EdgeLord.Tests.csproj" />
+  </Folder>
+</Solution>

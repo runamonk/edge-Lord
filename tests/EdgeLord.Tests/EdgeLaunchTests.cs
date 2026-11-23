@@ -1,6 +1,6 @@
-using TheREdirector;
+using EdgeLord;
 
-namespace TheREdirector.Tests;
+namespace EdgeLord.Tests;
 
 public class EdgeLaunchTests
 {

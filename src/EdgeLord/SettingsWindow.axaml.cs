@@ -1,7 +1,7 @@
 using Avalonia.Controls;
 using Avalonia.Interactivity;
 
-namespace TheREdirector;
+namespace EdgeLord;
 
 public partial class SettingsWindow : Window
 {

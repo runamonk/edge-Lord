@@ -3,12 +3,12 @@ using System.Diagnostics;
 using System.Security.Principal;
 using Avalonia;
 
-namespace TheREdirector;
+namespace EdgeLord;
 
 class Program
 {
     // Two copies would open every link twice.
-    private static readonly string InstanceName = "TheREdirector-" + Environment.UserName;
+    private static readonly string InstanceName = "EdgeLord-" + Environment.UserName;
 
     [STAThread]
     public static void Main(string[] args)
@@ -33,7 +33,7 @@ class Program
             if (new WindowsPrincipal(identity).IsInRole(WindowsBuiltInRole.Administrator)) return false;
         // Under the debugger the process is dotnet.exe, which can't be restarted this way.
         var exe = Environment.ProcessPath;
-        if (exe == null || !Path.GetFileName(exe).Equals("TheREdirector.exe", StringComparison.OrdinalIgnoreCase)) return false;
+        if (exe == null || !Path.GetFileName(exe).Equals("EdgeLord.exe", StringComparison.OrdinalIgnoreCase)) return false;
         try
         {
             Process.Start(new ProcessStartInfo(exe, "--no-admin") { UseShellExecute = true, Verb = "runas" });

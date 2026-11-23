@@ -1,10 +1,10 @@
 $ErrorActionPreference = 'Stop'
 Add-Type -AssemblyName System.Drawing
-$assetDirectory = Join-Path $PSScriptRoot '../src/TheREdirector/Assets'
+$assetDirectory = Join-Path $PSScriptRoot '../src/EdgeLord/Assets'
 [IO.Directory]::CreateDirectory($assetDirectory) | Out-Null
 
-# A bent arrow on a rounded tile: links going somewhere other than where Windows wanted.
-function New-Icon([string]$name, [string]$tile) {
+# A crown, worn at a rakish angle, on a rounded tile. The lord of Edge doesn't take it seriously either.
+function New-Icon([string]$name, [string]$tile, [string]$crown) {
     $canvas = [Drawing.Bitmap]::new(1024, 1024)
     $graphics = [Drawing.Graphics]::FromImage($canvas)
     $graphics.SmoothingMode = [Drawing.Drawing2D.SmoothingMode]::AntiAlias
@@ -21,11 +21,25 @@ function New-Icon([string]$name, [string]$tile) {
     $graphics.FillPath($brush, $path)
     $brush.Dispose(); $path.Dispose()
 
-    $pen = [Drawing.Pen]::new([Drawing.Color]::White, 30)
-    $pen.StartCap = [Drawing.Drawing2D.LineCap]::Round
-    $pen.CustomEndCap = [Drawing.Drawing2D.AdjustableArrowCap]::new(2.6, 2.4, $true)
-    $graphics.DrawBezier($pen, 56, 196, 64, 110, 120, 84, 186, 84)
-    $pen.Dispose()
+    $graphics.TranslateTransform(128, 136)
+    $graphics.RotateTransform(-14)
+    $graphics.TranslateTransform(-128, -136)
+    $gold = [Drawing.SolidBrush]::new([Drawing.ColorTranslator]::FromHtml($crown))
+    # Three points, then a band underneath with a sliver of tile between them.
+    $points = [Drawing.PointF[]]@(
+        [Drawing.PointF]::new(58, 166), [Drawing.PointF]::new(46, 90), [Drawing.PointF]::new(96, 128),
+        [Drawing.PointF]::new(128, 66), [Drawing.PointF]::new(160, 128), [Drawing.PointF]::new(210, 90),
+        [Drawing.PointF]::new(198, 166))
+    $graphics.FillPolygon($gold, $points)
+    $band = [Drawing.Drawing2D.GraphicsPath]::new()
+    $band.AddArc(58, 176, 20, 20, 90, 180)
+    $band.AddArc(178, 176, 20, 20, 270, 180)
+    $band.CloseFigure()
+    $graphics.FillPath($gold, $band)
+    foreach ($tip in @(@(46, 90), @(128, 66), @(210, 90))) {
+        $graphics.FillEllipse($gold, $tip[0] - 15, $tip[1] - 15, 30, 30)
+    }
+    $band.Dispose(); $gold.Dispose()
     $graphics.Dispose()
 
     $sizes = @(16, 20, 24, 32, 40, 48, 64, 256)
@@ -39,6 +53,8 @@ function New-Icon([string]$name, [string]$tile) {
         $stream = [IO.MemoryStream]::new()
         $bitmap.Save($stream, [Drawing.Imaging.ImageFormat]::Png)
         $frames += ,$stream.ToArray()
+        # The README shows the big one.
+        if ($size -eq 256 -and $name -eq 'EdgeLord') { $bitmap.Save((Join-Path $assetDirectory "$name.png"), [Drawing.Imaging.ImageFormat]::Png) }
         $stream.Dispose(); $g.Dispose(); $bitmap.Dispose()
     }
     $canvas.Dispose()
@@ -59,7 +75,7 @@ function New-Icon([string]$name, [string]$tile) {
     $writer.Dispose()
 }
 
-New-Icon 'TheREdirector' '#E8743B'
+New-Icon 'EdgeLord' '#5B3FA8' '#F5C542'
 # Grey when paused, so the tray shows at a glance whether it's working.
-New-Icon 'TheREdirector-off' '#8A8A8A'
-Write-Output 'Generated TheREdirector.ico and TheREdirector-off.ico.'
+New-Icon 'EdgeLord-off' '#8A8A8A' '#D9D9D9'
+Write-Output 'Generated EdgeLord.ico and EdgeLord-off.ico.'

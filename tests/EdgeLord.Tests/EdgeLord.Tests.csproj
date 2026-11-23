@@ -18,8 +18,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\src\TheREdirector.Core\TheREdirector.Core.csproj" />
-    <ProjectReference Include="..\..\src\TheREdirector\TheREdirector.csproj" />
+    <ProjectReference Include="..\..\src\EdgeLord.Core\EdgeLord.Core.csproj" />
+    <ProjectReference Include="..\..\src\EdgeLord\EdgeLord.csproj" />
   </ItemGroup>
 
 </Project>

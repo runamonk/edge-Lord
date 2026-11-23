@@ -5,9 +5,9 @@
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
     <ApplicationManifest>app.manifest</ApplicationManifest>
-    <ApplicationIcon>Assets/TheREdirector.ico</ApplicationIcon>
-    <AssemblyTitle>The Redirector</AssemblyTitle>
-    <Product>The Redirector</Product>
+    <ApplicationIcon>Assets/EdgeLord.ico</ApplicationIcon>
+    <AssemblyTitle>edge Lord</AssemblyTitle>
+    <Product>edge Lord</Product>
     <Description>Sends links Windows forces into Edge to your default browser.</Description>
     <!-- Release builds get the tag's version from CI; anything else is a dev build. -->
     <Version>0.0.0-dev</Version>
@@ -15,7 +15,7 @@
 
   <ItemGroup>
     <AvaloniaResource Include="Assets/**" />
-    <InternalsVisibleTo Include="TheREdirector.Tests" />
+    <InternalsVisibleTo Include="EdgeLord.Tests" />
     <PackageReference Include="Avalonia" Version="12.1.3" />
     <PackageReference Include="Avalonia.Desktop" Version="12.1.3" />
     <PackageReference Include="Avalonia.Themes.Fluent" Version="12.1.3" />
@@ -24,6 +24,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\TheREdirector.Core\TheREdirector.Core.csproj" />
+    <ProjectReference Include="..\EdgeLord.Core\EdgeLord.Core.csproj" />
   </ItemGroup>
 </Project>

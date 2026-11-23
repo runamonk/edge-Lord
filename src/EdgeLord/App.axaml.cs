@@ -6,14 +6,14 @@ using Avalonia.Markup.Xaml;
 using Avalonia.Platform;
 using Avalonia.Threading;
 
-namespace TheREdirector;
+namespace EdgeLord;
 
 public partial class App : Application
 {
     private readonly Settings settings = Settings.Read();
     private readonly EdgeWatcher watcher;
-    private readonly WindowIcon onIcon = LoadIcon("TheREdirector.ico");
-    private readonly WindowIcon offIcon = LoadIcon("TheREdirector-off.ico");
+    private readonly WindowIcon onIcon = LoadIcon("EdgeLord.ico");
+    private readonly WindowIcon offIcon = LoadIcon("EdgeLord-off.ico");
     private TrayIcon tray = null!;
     private NativeMenuItem enabledItem = null!;
     private string lastRedirect = "";
@@ -139,12 +139,12 @@ public partial class App : Application
         var on = watcher.IsRunning;
         enabledItem.IsChecked = on;
         tray.Icon = on ? onIcon : offIcon;
-        var text = "The Redirector: " + (on ? watcher.IsInstant ? "on" : "on (not admin, may miss links)" : "off");
+        var text = "edge Lord: " + (on ? watcher.IsInstant ? "on" : "on (not admin, may miss links)" : "off");
         if (lastRedirect.Length > 0) text += "\n" + lastRedirect;
         // Windows cuts tray tooltips off at 127 characters.
         tray.ToolTipText = text.Length > 127 ? text[..124] + "..." : text;
     }
 
     private static WindowIcon LoadIcon(string name)
-        => new(AssetLoader.Open(new Uri($"avares://TheREdirector/Assets/{name}")));
+        => new(AssetLoader.Open(new Uri($"avares://EdgeLord/Assets/{name}")));
 }

@@ -1,9 +1,9 @@
 using System.Diagnostics;
 using System.Runtime.InteropServices;
-using TheREdirector.Core;
+using EdgeLord.Core;
 
-// Installs a downloaded update once The Redirector has closed, then starts it again.
-// The Redirector runs this from a temp copy, so nothing in the app folder is in use.
+// Installs a downloaded update once edge Lord has closed, then starts it again.
+// edge Lord runs this from a temp copy, so nothing in the app folder is in use.
 const uint OkCancel = 1, Warning = 0x30, Information = 0x40;
 const int ClickedOk = 1;
 
@@ -12,10 +12,10 @@ for (var i = 0; i + 1 < args.Length; i += 2) options[args[i]] = args[i + 1];
 if (!options.TryGetValue("--pid", out var pid) || !options.TryGetValue("--zip", out var zip) ||
     !options.TryGetValue("--app", out var app) || !options.TryGetValue("--from", out var from))
 {
-    MessageBoxW(0, "Use Check for updates in The Redirector's tray menu to update it.", "The Redirector", Information);
+    MessageBoxW(0, "Use Check for updates in edge Lord's tray menu to update it.", "edge Lord", Information);
     return 1;
 }
-var exe = Path.GetFullPath(Path.Combine(app, "TheREdirector.exe"));
+var exe = Path.GetFullPath(Path.Combine(app, "EdgeLord.exe"));
 
 try
 {
@@ -26,22 +26,22 @@ try
     }
     catch (ArgumentException) { } // Already closed.
     while (IsRunning(exe))
-        if (MessageBoxW(0, "Quit The Redirector to finish updating, then click OK.", "The Redirector update", OkCancel | Information) != ClickedOk)
+        if (MessageBoxW(0, "Quit edge Lord to finish updating, then click OK.", "edge Lord update", OkCancel | Information) != ClickedOk)
             return 0;
     UpdateInstaller.Install(zip, app, from);
 }
 catch (Exception e)
 {
-    MessageBoxW(0, "The Redirector could not be updated.\n\n" + e.Message, "The Redirector update", Warning);
+    MessageBoxW(0, "edge Lord could not be updated.\n\n" + e.Message, "edge Lord update", Warning);
 }
 
 try { Process.Start(new ProcessStartInfo(exe) { UseShellExecute = true, WorkingDirectory = app }); }
-catch (Exception e) { MessageBoxW(0, "The Redirector could not be started.\n\n" + e.Message, "The Redirector update", Warning); }
+catch (Exception e) { MessageBoxW(0, "edge Lord could not be started.\n\n" + e.Message, "edge Lord update", Warning); }
 return 0;
 
 static bool IsRunning(string exe)
 {
-    foreach (var process in Process.GetProcessesByName("TheREdirector"))
+    foreach (var process in Process.GetProcessesByName("EdgeLord"))
         using (process)
         {
             try

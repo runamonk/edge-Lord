@@ -1,4 +1,4 @@
-namespace TheREdirector;
+namespace EdgeLord;
 
 // Reads msedge.exe command lines that Windows produced for microsoft-edge: links.
 internal static class EdgeLaunch

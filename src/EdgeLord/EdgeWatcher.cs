@@ -3,7 +3,7 @@ using System.Management;
 using System.Runtime.InteropServices;
 using Microsoft.Win32;
 
-namespace TheREdirector;
+namespace EdgeLord;
 
 // Watches msedge.exe starting. Links go to the default browser; an Edge started without one gets closed,
 // because an Edge left running swallows links before they can be redirected.

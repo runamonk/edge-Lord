@@ -1,11 +1,11 @@
 using System.Text.Json;
 
-namespace TheREdirector;
+namespace EdgeLord;
 
 internal static class AppFiles
 {
     public static readonly string Folder = Path.Combine(
-        Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "TheREdirector");
+        Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "EdgeLord");
 }
 
 internal sealed class Settings
@@ -66,7 +66,7 @@ internal static class Log
 internal static class StartWithWindows
 {
     private static readonly string ShortcutPath = Path.Combine(
-        Environment.GetFolderPath(Environment.SpecialFolder.Startup), "The Redirector.lnk");
+        Environment.GetFolderPath(Environment.SpecialFolder.Startup), "edge Lord.lnk");
 
     public static bool IsOn => File.Exists(ShortcutPath);
 

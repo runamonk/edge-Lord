@@ -1,6 +1,6 @@
 using System.Runtime.InteropServices;
 
-namespace TheREdirector;
+namespace EdgeLord;
 
 // Reads another process's command line straight from Windows; asking WMI is too slow to beat Edge.
 internal static class CommandLine

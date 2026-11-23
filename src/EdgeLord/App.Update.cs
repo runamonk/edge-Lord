@@ -9,15 +9,15 @@ using Avalonia.Interactivity;
 using Avalonia.Layout;
 using Avalonia.Media;
 
-namespace TheREdirector;
+namespace EdgeLord;
 
 public partial class App
 {
     internal static readonly string AppVersion =
         (typeof(App).Assembly.GetCustomAttribute<AssemblyInformationalVersionAttribute>()?.InformationalVersion ?? "0.0.0-dev").Split('+')[0];
-    private const string LatestReleaseUrl = "https://api.github.com/repos/runamonk/TheREdirector/releases/latest";
-    private const string UpdaterName = "TheREdirectorUpdater.exe";
-    private static readonly string UpdateFolder = Path.Combine(Path.GetTempPath(), "TheREdirector-update");
+    private const string LatestReleaseUrl = "https://api.github.com/repos/runamonk/edge-Lord/releases/latest";
+    private const string UpdaterName = "EdgeLordUpdater.exe";
+    private static readonly string UpdateFolder = Path.Combine(Path.GetTempPath(), "EdgeLord-update");
     private string? _updateZip;
     private bool _checkingForUpdates;
 
@@ -60,7 +60,7 @@ public partial class App
         try
         {
             using var http = new HttpClient { Timeout = Timeout.InfiniteTimeSpan };
-            http.DefaultRequestHeaders.UserAgent.ParseAdd("TheREdirector/" + AppVersion);
+            http.DefaultRequestHeaders.UserAgent.ParseAdd("EdgeLord/" + AppVersion);
             using var check = new CancellationTokenSource(TimeSpan.FromSeconds(30));
             using var release = JsonDocument.Parse(await http.GetStringAsync(LatestReleaseUrl, check.Token));
             RememberUpdateCheck();
@@ -79,7 +79,7 @@ public partial class App
             if (digest == null || !digest.StartsWith("sha256:", StringComparison.Ordinal))
                 throw new IOException($"Version {latest} has no checksum, so it can't be verified.");
             _toast?.Dismiss();
-            if (!await Confirm("Update The Redirector", $"Version {latest} is available. You have {AppVersion}.", "Download")) return;
+            if (!await Confirm("Update edge Lord", $"Version {latest} is available. You have {AppVersion}.", "Download")) return;
             // Asked for now, so problems from here on are shown even when the check itself was a quiet one.
             try
             {
@@ -87,7 +87,7 @@ public partial class App
                 if (!File.Exists(updater))
                     throw new IOException($"{UpdaterName} is missing, so this copy can't update itself. Download version {latest} from GitHub instead.");
                 Directory.CreateDirectory(UpdateFolder);
-                var zip = Path.Combine(UpdateFolder, $"TheREdirector-{latest}.zip");
+                var zip = Path.Combine(UpdateFolder, $"EdgeLord-{latest}.zip");
                 await Download(http, asset.GetProperty("browser_download_url").GetString()!, zip, digest["sha256:".Length..], latest);
                 // The updater runs from temp so nothing in the app folder is in use while it installs.
                 File.Copy(updater, Path.Combine(UpdateFolder, UpdaterName), true);
@@ -95,7 +95,7 @@ public partial class App
             }
             catch (Exception e)
             {
-                Tell(e is OperationCanceledException ? "The download took too long. Try again later." : "The Redirector couldn't be updated. " + e.Message);
+                Tell(e is OperationCanceledException ? "The download took too long. Try again later." : "edge Lord couldn't be updated. " + e.Message);
                 return;
             }
             _toast?.Dismiss();
@@ -114,7 +114,7 @@ public partial class App
     // Progress shows in the toast; without a size from GitHub there's no bar, just the line.
     private async Task Download(HttpClient http, string url, string zip, string sha256, Version version)
     {
-        Toast.ShowMessage($"Downloading The Redirector {version}…");
+        Toast.ShowMessage($"Downloading edge Lord {version}…");
         using var timeout = new CancellationTokenSource(TimeSpan.FromMinutes(10));
         try
         {
@@ -138,7 +138,7 @@ public partial class App
                     var percent = (int)(received * 100 / total);
                     if (percent == shown) continue;
                     shown = percent;
-                    Toast.ShowMessage($"Downloading The Redirector {version}… {percent}%", percent);
+                    Toast.ShowMessage($"Downloading edge Lord {version}… {percent}%", percent);
                 }
             }
             if (!Convert.ToHexString(hash.GetHashAndReset()).Equals(sha256, StringComparison.OrdinalIgnoreCase))
@@ -153,7 +153,7 @@ public partial class App
 
     private async Task RestartToUpdate()
     {
-        if (await Confirm("Restart The Redirector", "The update is ready. Restart The Redirector now to install it? Choose Later to install it the next time it quits.", "Restart", "Later"))
+        if (await Confirm("Restart edge Lord", "The update is ready. Restart edge Lord now to install it? Choose Later to install it the next time it quits.", "Restart", "Later"))
             Quit();
     }
 

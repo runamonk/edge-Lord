@@ -1,7 +1,7 @@
 <Window xmlns="https://github.com/avaloniaui"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        x:Class="TheREdirector.ToastWindow"
-        Title="The Redirector" SizeToContent="WidthAndHeight" CanResize="False"
+        x:Class="EdgeLord.ToastWindow"
+        Title="edge Lord" SizeToContent="WidthAndHeight" CanResize="False"
         WindowDecorations="None" Topmost="True" ShowInTaskbar="False" ShowActivated="False"
         WindowStartupLocation="Manual" Background="Transparent">
   <!-- The margin leaves room for the shadow inside the transparent window. -->

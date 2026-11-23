@@ -3,7 +3,7 @@ using Avalonia.Controls;
 using Avalonia.Input;
 using Avalonia.Threading;
 
-namespace TheREdirector;
+namespace EdgeLord;
 
 // One line in the corner above the taskbar, for things happening in the background like updates.
 // It never takes focus, and a click puts it away.

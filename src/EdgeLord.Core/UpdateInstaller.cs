@@ -1,6 +1,6 @@
 using System.IO.Compression;
 
-namespace TheREdirector.Core;
+namespace EdgeLord.Core;
 
 // Installs a release zip into the app folder. Only the files the zip replaces are touched,
 // so anything else in the folder stays where it is.

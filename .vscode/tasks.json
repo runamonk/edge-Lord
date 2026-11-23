@@ -5,7 +5,7 @@
       "label": "build",
       "type": "process",
       "command": "dotnet",
-      "args": ["build", "${workspaceFolder}/src/TheREdirector/TheREdirector.csproj"],
+      "args": ["build", "${workspaceFolder}/src/EdgeLord/EdgeLord.csproj"],
       "problemMatcher": "$msCompile",
       "group": { "kind": "build", "isDefault": true }
     },
@@ -13,14 +13,14 @@
       "label": "test",
       "type": "process",
       "command": "dotnet",
-      "args": ["test", "${workspaceFolder}/TheREdirector.slnx"],
+      "args": ["test", "${workspaceFolder}/EdgeLord.slnx"],
       "problemMatcher": "$msCompile"
     },
     {
       "label": "publish portable Windows app",
       "type": "process",
       "command": "dotnet",
-      "args": ["publish", "${workspaceFolder}/src/TheREdirector/TheREdirector.csproj", "-c", "Release", "-r", "win-x64", "--self-contained", "true", "-o", "${workspaceFolder}/artifacts/TheREdirector"],
+      "args": ["publish", "${workspaceFolder}/src/EdgeLord/EdgeLord.csproj", "-c", "Release", "-r", "win-x64", "--self-contained", "true", "-o", "${workspaceFolder}/artifacts/EdgeLord"],
       "problemMatcher": "$msCompile"
     }
   ]

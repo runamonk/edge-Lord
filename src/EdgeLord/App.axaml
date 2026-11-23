@@ -1,6 +1,6 @@
 <Application xmlns="https://github.com/avaloniaui"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             x:Class="TheREdirector.App"
+             x:Class="EdgeLord.App"
              RequestedThemeVariant="Default">
     <!-- Only what the update toast needs. -->
     <Application.Resources>

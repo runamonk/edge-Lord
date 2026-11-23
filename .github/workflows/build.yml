@@ -20,7 +20,7 @@ jobs:
           global-json-file: global.json
 
       - name: Test
-        run: dotnet test tests/TheREdirector.Tests -c Release
+        run: dotnet test tests/EdgeLord.Tests -c Release
 
       - name: Version
         shell: pwsh
@@ -30,28 +30,28 @@ jobs:
           "VERSION=$v" >> $env:GITHUB_ENV
 
       - name: Publish
-        run: dotnet publish src/TheREdirector -c Release -r win-x64 --self-contained true -p:Version=${{ env.VERSION }} -o artifacts/TheREdirector
+        run: dotnet publish src/EdgeLord -c Release -r win-x64 --self-contained true -p:Version=${{ env.VERSION }} -o artifacts/EdgeLord
 
       - name: Publish updater
         shell: pwsh
         run: |
-          dotnet publish src/TheREdirector.Updater -c Release -p:Version=${{ env.VERSION }} -o artifacts/updater
-          Copy-Item artifacts/updater/TheREdirectorUpdater.exe artifacts/TheREdirector/
+          dotnet publish src/EdgeLord.Updater -c Release -p:Version=${{ env.VERSION }} -o artifacts/updater
+          Copy-Item artifacts/updater/EdgeLordUpdater.exe artifacts/EdgeLord/
 
       - name: Zip
         shell: pwsh
-        run: Compress-Archive artifacts/TheREdirector/* TheREdirector-${{ env.VERSION }}-win-x64.zip
+        run: Compress-Archive artifacts/EdgeLord/* EdgeLord-${{ env.VERSION }}-win-x64.zip
 
       - uses: actions/upload-artifact@v4
         with:
-          name: TheREdirector-${{ env.VERSION }}
-          path: TheREdirector-*.zip
+          name: EdgeLord-${{ env.VERSION }}
+          path: EdgeLord-*.zip
 
       - name: Release
         if: github.ref_type == 'tag'
         uses: softprops/action-gh-release@v2
         with:
-          files: TheREdirector-*.zip
+          files: EdgeLord-*.zip
           generate_release_notes: true
           # Tags like v1.2.3-test are pre-releases, which the in-app updater never offers.
           prerelease: ${{ contains(github.ref_name, '-') }}
